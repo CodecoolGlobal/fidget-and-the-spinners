@@ -12,14 +12,12 @@ export default function Shop() {
   return (
     <>
       <Navbar />
-      <Grid container direction="row" spacing={0} className={classes.appBar}>
+      <Grid container direction="row" spacing={2} className={classes.appBar}>
         <Grid item xs={6}>
           <CharacterWindow />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6}>
           <Inventory />
-        </Grid>
-        <Grid item xs={3}>
           <ShopInventory />
         </Grid>
       </Grid>
