@@ -10,6 +10,7 @@ import Kitchen from "./pages/Kitchen";
 import Copyright from "./components/Copyright";
 import styled from "styled-components";
 import { StatProvider } from "./contexts/StatProvider";
+import { QuestProvider } from "./contexts/QuestProvider";
 import Shop from "./pages/Shop";
 
 const Footer = styled.footer`
@@ -34,7 +35,9 @@ function App() {
             component={CharacterCreation}
           />
           <Route path="/character" component={Character} />
-          <Route path="/kitchen" component={Kitchen} />
+          <QuestProvider>
+            <Route path="/kitchen" component={Kitchen} />
+          </QuestProvider>
           <Route path="/shop" component={Shop} />
         </StatProvider>
         <Footer>

@@ -11,6 +11,7 @@ public enum Rarity {
     EPIC("statMultiplier","4","sellPrice","4","buyPrice","16","motivation","4");
 
 
+
     private final Map<String, Long> map;
 
     Rarity(String... keysAndValues) {

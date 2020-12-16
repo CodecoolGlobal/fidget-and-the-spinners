@@ -1,21 +1,21 @@
 {
   "users": [
     {
-      "id": "1",
+      "id": 1,
       "username": "admin",
       "password": "admin",
       "statId": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "username": "Alex",
       "password": "alex",
       "statId": 2
     }
   ],
-  "statistics": [
+  "stats": [
     {
-      "id": "1",
+      "id": 1,
       "problemSolving": "253",
       "design": "144",
       "algorithm": "233",
@@ -26,7 +26,7 @@
       "debugChance": "10"
     },
     {
-      "id": "2",
+      "id": 2,
       "problemSolving": "153",
       "design": "44",
       "algorithm": "133",
@@ -35,6 +35,32 @@
       "motivation": "100",
       "fastCoding": "10",
       "debugChance": "30"
+    }
+  ],
+  "quests": [
+    {
+      "name": "Codewars Kata",
+      "description": "6kyu",
+      "questTime": 2,
+      "energyCost": 2,
+      "rewardCoin": 13,
+      "rewardXP": 16
+    },
+    {
+      "name": "Get a GO on PA",
+      "description": "Get them all",
+      "questTime": 5,
+      "energyCost": 5,
+      "rewardCoin": 36,
+      "rewardXP": 27
+    },
+    {
+      "name": "Unslayable beast",
+      "description": "5kyu",
+      "questTime": 9,
+      "energyCost": 9,
+      "rewardCoin": 44,
+      "rewardXP": 36
     }
   ]
 }

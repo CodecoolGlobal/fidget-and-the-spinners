@@ -20,7 +20,7 @@ public class ShopController {
         shopService.addItemToShopByCharacterIdAndCharacterLevel(characterId,characterLevel);
     }
 
-    @GetMapping("/getItemByCharacterId")
+    @GetMapping("/getItemsByCharacterId")
     public List<Item> getItemsByCharacterId(@RequestParam("characterId") Long characterId){
         return shopService.getItemsByCharacterId(characterId);
     }
@@ -29,5 +29,16 @@ public class ShopController {
     public void addMultipleItemsToShopByCharacterIdAndCharacterLevel(@RequestParam("characterId") Long characterId,@RequestParam("characterLevel") Long characterLevel,@RequestParam("numberOfItems") Long numberOfItems){
         shopService.addMultipleItemsToShopByCharacterIdAndCharacterLevel(characterId,characterLevel,numberOfItems);
     }
+
+    @PutMapping("/refreshShop")
+    public void refreshItemsByCharacterId(@RequestParam("characterId") Long characterId,@RequestParam("characterLevel") Long characterLevel) throws Exception {
+        shopService.refreshItemsByCharacterId(characterId, characterLevel);
+    }
+
+    @GetMapping("/buyItem")
+    public Item buyItem(@RequestParam("id") Long id){
+        return shopService.pollItemById(id);
+    }
+
 
 }

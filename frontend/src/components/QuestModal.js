@@ -1,8 +1,13 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
+import { QuestContext } from "../contexts/QuestProvider";
+import Grid from "@material-ui/core/Grid";
+import AccessAlarmRoundedIcon from "@material-ui/icons/AccessAlarmRounded";
+import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
+import CloudUploadRoundedIcon from "@material-ui/icons/CloudUploadRounded";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -15,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    borderRadius: "7%",
   },
   rewards: {
     display: "flex",
@@ -24,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   item: {
     order: 3,
   },
+  gridItem: { fontStyle: "oblique", fontSize: "x-large", fontWeight: 600 },
 }));
 
 const Fade = forwardRef(function Fade(props, ref) {
@@ -54,35 +61,11 @@ const Fade = forwardRef(function Fade(props, ref) {
 export default function QuestModal() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-
-  const DUMMYQUESTS = [
-    {
-      id: 1,
-      name: "Baklava",
-      description:
-        "You might wander far off the land, but do you have what it takes to sail along powerful tidalwaves?",
-      rewards: { gold: 1234, xp: 2345, minutesToComplete: 20 },
-    },
-    {
-      id: 2,
-      name: "Kilimanjaro",
-      description:
-        "Roaming to the East was never an easy task. Collect your courage and be ready to be brave",
-      rewards: { gold: 4321, xp: 321, minutesToComplete: 45 },
-    },
-    {
-      id: 3,
-      name: "Tulok",
-      description:
-        "At the feet of the grandiose Mount Everest you will find this rare beast. He's too sacred to hunt, but bring me his milk",
-      rewards: { gold: 678, xp: 3456, minutesToComplete: 35 },
-    },
-  ];
-
-  const [actualQuest, setActualQuest] = useState(DUMMYQUESTS[0]);
+  const { quests, actualQuest, setActualQuest } = useContext(QuestContext);
 
   const handleOpen = () => {
     setOpen(true);
+    setActualQuest(quests[0]);
   };
 
   const handleClose = () => {
@@ -90,13 +73,13 @@ export default function QuestModal() {
   };
 
   return (
-    <div>
-      <button type='button' onClick={handleOpen}>
+    <>
+      <button type="button" onClick={handleOpen}>
         Take Quest
       </button>
       <Modal
-        aria-labelledby='spring-modal-title'
-        aria-describedby='spring-modal-description'
+        aria-labelledby="spring-modal-title"
+        aria-describedby="spring-modal-description"
         className={classes.modal}
         open={open}
         onClose={handleClose}
@@ -106,34 +89,37 @@ export default function QuestModal() {
           timeout: 500,
         }}
       >
-        <Fade in={open}>
+        <Fade in={open} className={classes.paper}>
           <div className={classes.paper}>
-            <h2 id='spring-modal-title'>Take Quest</h2>
-            <p id='spring-modal-description'>Choose your quest here</p>
-            <button onClick={() => setActualQuest(DUMMYQUESTS[0])}>
+            <h2 id="spring-modal-title">Take Quest</h2>
+            <p id="spring-modal-description">Choose your quest here</p>
+            <button
+              onClick={() => {
+                return setActualQuest(quests[0]);
+              }}
+            >
               Quest 1
             </button>
-            <button onClick={() => setActualQuest(DUMMYQUESTS[1])}>
-              Quest 2
-            </button>
-            <button onClick={() => setActualQuest(DUMMYQUESTS[2])}>
-              Quest 3
-            </button>
-            <div>
-              <h4>{actualQuest.name}</h4>
-              <h5>{actualQuest.description}</h5>
-            </div>
+            <button onClick={() => setActualQuest(quests[1])}>Quest 2</button>
+            <button onClick={() => setActualQuest(quests[2])}>Quest 3</button>
+
+            <h4>{actualQuest.name}</h4>
+            <h5>{actualQuest.description}</h5>
             <h4>Reward:</h4>
-            <div className={classes.rewards}>
-              {Object.entries(actualQuest.rewards).map((reward, id) => (
-                <div key={id} id={reward[0]} className='item'>
-                  {reward[1]}
-                </div>
-              ))}
-            </div>
+            <Grid container className={classes.rewards}>
+              <Grid item className={classes.gridItem}>
+                <MonetizationOnRoundedIcon /> {actualQuest.rewardCoin}
+              </Grid>
+              <Grid item className={classes.gridItem}>
+                <CloudUploadRoundedIcon /> {actualQuest.rewardXP}
+              </Grid>
+              <Grid item className={classes.gridItem}>
+                <AccessAlarmRoundedIcon /> {actualQuest.questTime}
+              </Grid>
+            </Grid>
           </div>
         </Fade>
       </Modal>
-    </div>
+    </>
   );
 }

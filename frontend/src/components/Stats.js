@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -15,31 +15,24 @@ const useStyles = makeStyles({
 });
 
 export default function Stats() {
-  //const { stats, fetchStats } = useContext({StatContext});
-  const [stats, setStats] = useState({
-    ProblemSolving: 0,
-    Design: 0,
-    Algorithm: 0,
-    Testing: 0,
-    CleanCode: 0,
-  });
+  const { stats, fetchStats } = useContext(StatContext);
   const classes = useStyles();
 
   useEffect(() => {
-    //fetchStats();
+    fetchStats();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label='simple table'>
+      <Table className={classes.table} aria-label="simple table">
         <TableBody>
           {Object.entries(stats).map((stat) => (
             <TableRow key={stat[0]}>
-              <TableCell component='th' scope='row' width='70%' align='left'>
+              <TableCell component="th" scope="row" width="70%" align="left">
                 {stat[0]}
               </TableCell>
-              <TableCell align='left'>{stat[1]}</TableCell>
+              <TableCell align="left">{stat[1]}</TableCell>
             </TableRow>
           ))}
         </TableBody>
